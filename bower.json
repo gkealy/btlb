@@ -1,0 +1,13 @@
+{
+  "name": "btlb",
+  "homepage": "https://github.com/gkealy/btlb",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

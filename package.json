@@ -1,0 +1,12 @@
+{
+  "name": "btlb",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gkealy/btlb.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gkealy/btlb/issues"
+  },
+}
