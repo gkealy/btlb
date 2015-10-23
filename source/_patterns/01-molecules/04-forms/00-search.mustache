@@ -1,11 +1,9 @@
-<form action="{{ url }}" method="post" class="inline-form search-form">           
-    <fieldset>
-	    <legend class="is-vishidden">Search</legend>
-	    <label for="search-field" class="is-vishidden">Search</label>
-	    <input type="search" placeholder="Search" id="search-field" class="search-field" />
-	    <button class="search-submit">
-	    	<span class="icon-search" aria-hidden="true"></span>
-	    	<span class="is-vishidden">Search</span>
-	    </button>
-    </fieldset>
+<form role="search" method="get" class="search-form form-inline">
+  <label class="sr-only">Search For</label>
+  <div class="input-group">
+    <input type="search" name="s" class="search-field form-control" placeholder="Search" required>
+    <span class="input-group-btn">
+      <button type="submit" class="search-submit btn btn-default">Search</button>
+    </span>
+  </div>
 </form>

@@ -1,12 +1,30 @@
-<section class="comments section">
-	<div class="comments-container" id="comments-container">
-		<h2 class="section-title">59 Comments</h2>
-		{{> molecules-comment-form }} 
-		<ul class="comment-list">
-			{{# listItems.five }}
-				{{> molecules-single-comment }} 
-			{{/ listItems.five }}
-		</ul>
-	</div>
-	{{> molecules-pagination }} 
+<section id="comments" class="comments">
+	<h2>One response to &ldquo;{{ title }}&rdquo;</h2>
+	<ol class="comment-list">
+		<li id="comment-1" class="comment even thread-even depth-1">
+			<article id="div-comment-1" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img class="avatar" width="32" height="32" src="{{img.avatar.src}}"></img>
+						<b class="fn">
+							<a class="url" href="#">Mr Wordpress</a>
+						</b>
+						<span class="says">says:</span>
+					</div>
+					<div class="comment-metadata">
+						<a href="#">{{> atoms-time }}</a>
+						<span class="edit-link"><a href"#">Edit</a></span>
+					</div>
+				</footer>
+				<div class="comment-content">
+					<p>This is a comment.<br>To delete a comment, just log in and view the post's comments. There you will have the option to edit or delete them.</p>
+				</div>
+				<div class="reply">
+					<a class="comment-reply-link" href="#">Reply</a>
+				</div>
+			</article>
+		</li>
+	</ol>
+	<!-- Comments Pager Here -->
+	{{> organisms-comments-form }}
 </section>
