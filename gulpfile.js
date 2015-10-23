@@ -33,7 +33,7 @@ gulp.task('clean:before', function () {
 gulp.task('scripts', function () {
   return gulp.src(config.scripts.files)
     .pipe(concat(
-      'application.js'
+      'main.js'
     ))
     .pipe(gulpif(production, uglify()))
     .pipe(gulpif(production, rename({
