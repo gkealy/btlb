@@ -1,33 +1,21 @@
-var gulp        = require('gulp'),
-    bump        = require('gulp-bump'),
-    clean       = require('gulp-clean'), 
+var gulp        = require('gulp'), 
     concat      = require('gulp-concat'),
     browserSync = require('browser-sync'),
     cssmin      = require('gulp-cssmin'),
-    filter      = require('gulp-filter'),
-    git         = require('gulp-git'),
     gulpif      = require('gulp-if'),
     imagemin    = require('gulp-imagemin'),
     rename      = require('gulp-rename'),
     sass        = require('gulp-sass'),
     shell       = require('gulp-shell'),
-    tagversion  = require('gulp-tag-version'),
     uglify      = require('gulp-uglify'),
     config      = require('./build.config.json');
  
 // Trigger
 var production;
  
-// Task: Clean:before
+// Task: Clean
 // Description: Removing assets files before running other tasks
-gulp.task('clean:before', function () {
-  return gulp.src(
-    config.assets.dest
-  )
-    .pipe(clean({
-      force: true
-    }))
-});
+gulp.task('clean', require('del').bind(null, [config.assets.dest]));
  
 // Task: Handle scripts
 gulp.task('scripts', function () {
@@ -109,41 +97,21 @@ gulp.task('browser-sync', function() {
  
 // Task: Watch files
 gulp.task('watch', function () {
- 
   // Watch Pattern Lab files
-  gulp.watch(
-    config.patternlab.files,
-    ['patternlab']
-  );
- 
+  gulp.watch(config.patternlab.files, ['patternlab']); 
   // Watch scripts
-  gulp.watch(
-    config.scripts.files,
-    ['scripts']
-  );
- 
+  gulp.watch(config.scripts.files, ['scripts']);
   // Watch images
-  gulp.watch(
-    config.images.files,
-    ['images']
-  );
- 
+  gulp.watch(config.images.files, ['images']);
   // Watch Sass
-  gulp.watch(
-    config.scss.files,
-    ['sass']
-  );
- 
+  gulp.watch(config.scss.files, ['sass']); 
   // Watch fonts
-  gulp.watch(
-    config.fonts.files,
-    ['fonts']
-  );
+  gulp.watch(config.fonts.files, ['fonts']);
 });
  
 // Task: Default
 // Description: Build all stuff of the project once
-gulp.task('default', ['clean:before'], function () {
+gulp.task('default', ['clean'], function () {
   production = false;
  
   gulp.start(
@@ -175,29 +143,4 @@ gulp.task('deploy', function () {
     .pipe(shell([
       'rsync '+ config.deployment.rsync.options +' '+ config.deployment.local.path +'/ '+ config.deployment.remote.host
     ]))
-});
- 
-// Function: Releasing (Bump & Tagging)
-// Description: Bump npm versions, create Git tag and push to origin
-gulp.task('release', function () {
-  production = true;
- 
-  return gulp.src(config.versioning.files)
-    .pipe(bump({
-      type: gulp.env.type || 'patch'
-    }))
-    .pipe(gulp.dest('./'))
-    .pipe(git.commit('Release a ' + gulp.env.type + '-update'))
- 
-    // read only one file to get version number
-    .pipe(filter('package.json'))
- 
-    // Tag it
-    .pipe(tagversion())
- 
-    // Publish files and tags to endpoint
-    .pipe(shell([
-      'git push origin develop',
-      'git push origin --tags'
-    ]));
 });
